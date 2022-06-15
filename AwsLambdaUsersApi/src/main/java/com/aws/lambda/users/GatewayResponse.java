@@ -1,4 +1,4 @@
-package helloworld;
+package com.aws.lambda.users;
 
 import java.util.Collections;
 import java.util.HashMap;
