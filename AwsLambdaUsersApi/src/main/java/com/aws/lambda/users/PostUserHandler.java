@@ -23,6 +23,7 @@ public class PostUserHandler implements RequestHandler<APIGatewayProxyRequestEve
         Map<String, String> userDetails = gson.fromJson(body, Map.class);
         userDetails.put("userId", UUID.randomUUID().toString());
 
+        //preparing the response object
         Map response = new HashMap();
         response.put("firstName", userDetails.get("firstName"));
         response.put("lastName", userDetails.get("firstName"));
