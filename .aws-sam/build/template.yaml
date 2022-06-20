@@ -1,0 +1,45 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'aws-lambda-users-api-sam
+
+  Sample SAM Template for aws-lambda-users-api-sam
+
+  '
+Globals:
+  Function:
+    Timeout: 20
+    Runtime: java11
+    Architectures:
+    - x86_64
+    MemorySize: 512
+Resources:
+  PostHandlerLambdaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: PostHandlerLambdaFunction
+      Handler: com.aws.lambda.users.PostUserHandler::handleRequest
+      Events:
+        AwsLambdaUsers:
+          Type: Api
+          Properties:
+            Path: /users
+            Method: post
+    Metadata:
+      SamResourceId: PostHandlerLambdaFunction
+Outputs:
+  AwsLambdaUsersApi:
+    Description: API Gateway endpoint URL for Prod stage for aws lambda users api.
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/users/
+  PostHandlerLambdaFunction:
+    Description: Hello World Lambda Function ARN
+    Value:
+      Fn::GetAtt:
+      - PostHandlerLambdaFunction
+      - Arn
+  PostHandlerLambdaFunctionIamRole:
+    Description: Implicit IAM Role created for Hello World function
+    Value:
+      Fn::GetAtt:
+      - PostHandlerLambdaFunction
+      - Arn

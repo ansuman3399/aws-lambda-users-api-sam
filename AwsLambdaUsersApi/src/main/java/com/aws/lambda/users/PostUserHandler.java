@@ -18,7 +18,7 @@ public class PostUserHandler implements RequestHandler<APIGatewayProxyRequestEve
     public APIGatewayProxyResponseEvent handleRequest(final APIGatewayProxyRequestEvent request, final Context context) {
 
         String body = request.getBody();
-
+        System.out.println(body);
         Gson gson = new Gson();
         Map<String, String> userDetails = gson.fromJson(body, Map.class);
         userDetails.put("userId", UUID.randomUUID().toString());
