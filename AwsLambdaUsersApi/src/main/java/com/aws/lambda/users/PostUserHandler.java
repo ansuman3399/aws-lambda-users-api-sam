@@ -30,7 +30,7 @@ public class PostUserHandler implements RequestHandler<APIGatewayProxyRequestEve
         response.put("userId", userDetails.get("userId"));
 
         return new APIGatewayProxyResponseEvent()
-                .withBody(response.toString())
+                .withBody(gson.toJson(response,Map.class))
                 .withStatusCode(200);
     }
 }
