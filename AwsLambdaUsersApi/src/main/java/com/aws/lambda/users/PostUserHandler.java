@@ -29,8 +29,13 @@ public class PostUserHandler implements RequestHandler<APIGatewayProxyRequestEve
         response.put("lastName", userDetails.get("firstName"));
         response.put("userId", userDetails.get("userId"));
 
+        //response headers
+        Map responseHeaders = new HashMap();
+        responseHeaders.put("Content-Type","application/json");
+
         return new APIGatewayProxyResponseEvent()
                 .withBody(gson.toJson(response,Map.class))
+                .withHeaders(responseHeaders)
                 .withStatusCode(200);
     }
 }
