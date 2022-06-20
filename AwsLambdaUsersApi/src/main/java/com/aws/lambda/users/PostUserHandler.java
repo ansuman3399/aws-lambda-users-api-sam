@@ -31,10 +31,10 @@ public class PostUserHandler implements RequestHandler<APIGatewayProxyRequestEve
 
         //response headers
         Map responseHeaders = new HashMap();
-        responseHeaders.put("Content-Type","application/json");
+        responseHeaders.put("Content-Type", "application/json");
 
         return new APIGatewayProxyResponseEvent()
-                .withBody(gson.toJson(response,Map.class))
+                .withBody(gson.toJson(response, Map.class))
                 .withHeaders(responseHeaders)
                 .withStatusCode(200);
     }
