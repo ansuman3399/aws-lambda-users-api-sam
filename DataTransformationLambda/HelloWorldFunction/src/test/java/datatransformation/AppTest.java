@@ -8,7 +8,7 @@ import org.junit.Test;
 public class AppTest {
   @Test
   public void successfulResponse() {
-    App app = new App();
+    PostHandler app = new PostHandler();
     GatewayResponse result = (GatewayResponse) app.handleRequest(null, null);
     assertEquals(result.getStatusCode(), 200);
     assertEquals(result.getHeaders().get("Content-Type"), "application/json");
