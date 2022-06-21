@@ -8,5 +8,7 @@ then build the lambda function in order to run in a docker container:
 sam local invoke <ResourceName> --event events/event.json
 this command will run the lambda function locally.
 
-
+But in order to debug the lambda function locally:
+Run the lambda function through sam cli and attach a debugger at the specified port by using the command:
+sam local invoke <ResourceName> --event events/event.json -d 5858
 
