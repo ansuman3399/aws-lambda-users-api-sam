@@ -15,6 +15,7 @@ public class PostHandler implements RequestHandler<Map<String, String>, Map<Stri
 
     public Map<String, String> handleRequest(final Map<String, String> input, final Context context) {
 
+        //reading the value
         String firstName = input.get("firstName");
         String lastname = input.get("lastName");
         String email = input.get("email");
@@ -25,12 +26,14 @@ public class PostHandler implements RequestHandler<Map<String, String>, Map<Stri
 
         logger.log(firstName + "-" + lastname + "-" + email + "-" + password + "-" + repeatPassword);
 
+        //setting the response
         Map<String, String> response = new HashMap<>();
         response.put("firstName",firstName);
         response.put("lastName",lastname);
         response.put("email",email);
         response.put("id", UUID.randomUUID().toString());
 
+        //returning the response
         return response;
     }
 }

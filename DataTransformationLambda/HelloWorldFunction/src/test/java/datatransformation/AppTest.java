@@ -3,11 +3,12 @@ package datatransformation;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
 public class AppTest {
-  @Test
-  public void successfulResponse() {
+    @Test
+    public void successfulResponse() {
 //    PostHandler app = new PostHandler();
 //    GatewayResponse result = (GatewayResponse) app.handleRequest(null, null);
 //    assertEquals(result.getStatusCode(), 200);
@@ -17,5 +18,5 @@ public class AppTest {
 //    assertTrue(content.contains("\"message\""));
 //    assertTrue(content.contains("\"hello world\""));
 //    assertTrue(content.contains("\"location\""));
-  }
+    }
 }
