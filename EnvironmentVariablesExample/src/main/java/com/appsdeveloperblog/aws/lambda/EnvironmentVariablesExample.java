@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
@@ -17,12 +18,15 @@ public class EnvironmentVariablesExample implements RequestHandler<APIGatewayPro
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
 
-        APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent()
-                .withHeaders(headers);
+        APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent().withHeaders(headers);
 
-        return response
-                .withBody("{}")
-                .withStatusCode(500);
+        //Accessing the environment values:
+        String myEnvValue = System.getenv("Runtime");
+        LambdaLogger logger = context.getLogger();
+        logger.log(myEnvValue);
+
+        //returning response
+        return response.withBody("{}").withStatusCode(500);
 
     }
 }
