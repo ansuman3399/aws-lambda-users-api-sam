@@ -30,7 +30,3 @@ public class EnvironmentVariablesExample implements RequestHandler<APIGatewayPro
 
     }
 }
-class Aws{
-    //submit an object into aws s3
-
-}
