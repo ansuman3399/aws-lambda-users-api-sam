@@ -31,7 +31,7 @@ public class CreateUserHandler implements RequestHandler<APIGatewayProxyRequestE
         logger.log("original json body:"+requestBody);
 
         JsonObject userDetails = JsonParser.parseString(requestBody).getAsJsonObject();
-        
+
         return response
                 .withStatusCode(200)
                 .withBody("{}");
