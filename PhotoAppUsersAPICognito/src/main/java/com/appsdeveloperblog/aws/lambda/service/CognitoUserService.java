@@ -1,9 +1,11 @@
 package com.appsdeveloperblog.aws.lambda.service;
 
 import com.google.gson.JsonObject;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AttributeType;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.SignUpRequest;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.SignUpResponse;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -17,13 +19,17 @@ public class CognitoUserService {
 
     private final CognitoIdentityProviderClient client;
 
+    public CognitoUserService(String region) {
+        this.client = CognitoIdentityProviderClient.builder()
+                .region(Region.of(region))
+                .build();
+    }
+
     public CognitoUserService(CognitoIdentityProviderClient client) {
         this.client = client;
     }
 
     public JsonObject createUser(JsonObject user, String appClientId, String appClientSecret) {
-
-        JsonObject storedUser = new JsonObject();
 
         String email = user.get("email").getAsString();
         String password = user.get("password").getAsString();
@@ -58,7 +64,14 @@ public class CognitoUserService {
                 .secretHash(secretHash)
                 .build();
 
-        return storedUser;
+        SignUpResponse signUpResponse = client.signUp(signUpRequest);
+
+        JsonObject createUserResponse = new JsonObject();
+        createUserResponse.addProperty("isSuccessful", signUpResponse.sdkHttpResponse().isSuccessful());
+        createUserResponse.addProperty("statusCode", signUpResponse.sdkHttpResponse().statusCode());
+        createUserResponse.addProperty("cognitoUserId", signUpResponse.userSub());
+        createUserResponse.addProperty("isConfirmed", signUpResponse.userConfirmed());
+        return createUserResponse;
     }
 
     public static String calculateSecretHash(String userPoolClientId, String userPoolClientSecret, String userName) {
